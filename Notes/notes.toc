@@ -1,1 +1,4 @@
-\contentsline {section}{\numberline {1}Potential Outcomes}{2}{}%
+\contentsline {section}{\numberline {1}Potential Outcomes}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Answering a Different Type of Question}{3}{}%
+\contentsline {subsection}{\numberline {1.2}Mathematics for Causality}{3}{}%
+\contentsline {subsection}{\numberline {1.3}Applying Potential Outcomes on Real Data}{4}{}%
