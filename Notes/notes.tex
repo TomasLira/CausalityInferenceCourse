@@ -105,7 +105,7 @@ Unfortunately, this line of reasoning is fallacious. By simply conditioning on o
 \endgroup
 
 
-\subsection{Mathematics for Causality}
+\subsection{Formalization of Potential Outcomes}
 Suppose that we are working with an i.i.d. sample $\{(Y_i, D_i)\}_{i=1}^n$, where $D_i \in \{0,1\}$. With no further assumptions, the best we can do is study the joint distribution $P(Y_i, D_i) = P(Y_i \mid D_i)\cdot P(D_i)$ to calculate the conditional expectation $\mathbb{E}[Y_i \mid D_i = d]$.
 
 
@@ -120,6 +120,54 @@ The potential outcomes for unit $i$ are $Y_i(1)$ and $Y_i(0)$, where the former 
 Let $Y_i(1)$ and $Y_i(0)$ denote the potential outcomes for unit $i$. The individual causal effect, denoted by $\tau_i$, is defined as the difference:
 $$ \tau_i := Y_i(1) - Y_i(0) $$
 \end{definition}
+
+\begin{whitebox}
+\textbf{Key Distinction: Homogeneous vs. Heterogeneous}
+\medskip
+
+\textbf{Homogeneous Treatment Effect:}
+A situation in which $\tau_i$ is the same for all objects.
+
+\medskip
+
+\textbf{Heterogeneous Treatment Effect:}
+A situation in which $\tau_i$ differs across objects.
+\end{whitebox}
+
+\begin{definition}[Fundamental Problem of Causal Statistics]
+It's impossible to observe $Y_i(1)$ and $Y_i(0)$ at the same time on the same unit, making it impossible to observe the effect of the treatment over the placebo.
+\end{definition}
+
+In this context, the role of $D$ is not restricted to that of explanatory variable. Instead of an assignment mechanism that dictates the treatment for an unit, which results in the realization of a potentical outcome.
+
+\begin{graybox}
+
+
+\textbf{Observation (Heterogeneity):} Examining effects at the individual level leads to conflicting results due to treatment effect heterogeneity. For example, suppose we have access to both potential outcomes for four units with respect to their hourly salary with and without a degree, denoted as $(Y_i(1), Y_i(0))$:
+\begin{itemize}
+    \item $u_1 = (10, 5) \implies \tau_1 = 5$
+    \item $u_2 = (20, 4) \implies \tau_2 = 16$
+    \item $u_3 = (12, 7) \implies \tau_3 = 5$
+    \item $u_4 = (4, 100) \implies \tau_4 = -96$
+\end{itemize}
+Based on the first three units, we might conjecture that going to college has a universally positive effect on salary. However, unit $u_4$ contradicts this pattern.
+\end{graybox}
+
+When dealing with heterogeneous effects, we average out the individual effects thorugh the expectation operator. Formally, our \textit{Average Treatment Effect} is:
+\[
+\text{ATE} = \mathbb{E}[\tau_i] =  \mathbb{E}[Y_i(1) - Y_i(0)] = \mathbb{E}[Y_i(1)] -  \mathbb{E}[Y_i(0)]
+\]
+We emphasize the linearity of the expectation operator because, theoretically, it allows us to calculate potential outcome. By rewriting the equation as $\mathbb{E}[\tau_i] + \mathbb{E}[Y_i(0)] =\mathbb{E}[Y_i(1)]$. In this context, $\text{ATE}$ is our causal parameter that we want to estimate.
+Although not explicitly stated previously, our framework relies on two assumptions aobut the stability of the system.
+First, we assume \textit{No Interference}: the potential outcomes of any specific unit i are unaffected by the treatment assignments of other units. In other words, the treatment of one individual does not spill over to influence the result of another.
+Second, we assume \textit{Consistency}: the observed outcome $Y$ corresponds exactly to the potential outcome associated with the assigned treatment $D$ This guarantees that the treatment is well-defined and consistent across all units.
+Together, these conditions form what is known as the Stable Unit Treatment Value Assumption (SUTVA). In short our sample $(Y_i, D_i)$ satifies the following property:
+$$
+Y_i = Y_i(D_i) \quad \text{(SUTVA)}
+$$
+instead of $Y_i = Y_i(D_1,\dots,D_n)$.
+
+
 
 
 
